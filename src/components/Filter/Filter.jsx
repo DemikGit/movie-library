@@ -15,9 +15,18 @@ export class Filter extends Component {
   }
 
   render() {
+
     return (
       <Fragment>
-        <Grid item xs={ 2 }>
+        <Grid
+          item
+          xs={ 2 }
+          style={{
+            position: 'sticky',
+            top: '100px',
+            height: '300px',
+          }}
+        >
           <Paper style={{ padding: '32px' }}>
             <Typography style={{ marginBottom: '16px' }} variant="headline" component="h3">
               Filter
@@ -39,7 +48,7 @@ export class Filter extends Component {
                 </Select>
               </FormControl>
               <FormControl>
-                <InputLabel htmlFor="movie-year">Director</InputLabel>
+                <InputLabel htmlFor="movie-year">Year</InputLabel>
                 <Select
                   id="movie-year"
                   value={10}
