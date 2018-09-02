@@ -1,14 +1,13 @@
 import React, { Component, Fragment } from 'react';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+import { connect } from 'react-redux';
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Tooltip from '@material-ui/core/Tooltip';
+import { setOrder, setSort, setLimit, setPage } from './MovieListActions';
+import { getOrder, getSort, getLimit, getPage } from './MoveListSelectors';
+import { getDirectorFilter, getYearFilter } from '../Filter/FilterSelectors';
+import {
+  getParams, getDirectorsLoading, getMoviesLoading,
+  getMovies, getMoviesHasMore,
+} from '../App/AppSelectors';
 
 const rows = [
   { id: 'title', numeric: false, disablePadding: true, label: 'Movie' },

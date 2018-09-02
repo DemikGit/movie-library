@@ -1,8 +1,6 @@
 import React, { Component, Fragment } from 'react';
-import CssBaseline from '@material-ui/core/CssBaseline';
 
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import { CssBaseline, Grid, Typography } from '@material-ui/core';
 
 import { Filter } from '../Filter/Filter';
 import { MovieList } from '../MovieList/MovieList';
@@ -27,4 +25,3 @@ export class App extends Component {
     );
   }
 }
-

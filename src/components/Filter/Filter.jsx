@@ -1,16 +1,16 @@
 import React, { Component, Fragment } from 'react';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+import { connect } from 'react-redux';
 
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import { setDirectorFilter, setYearFilter } from './FilterActions';
+import { getDirectorFilter, getYearFilter } from './FilterSelectors';
 
-export class Filter extends Component {
+import { loadDirectors } from '../App/AppActions';
+import { getDirectorsOptions } from '../App/AppSelectors';
 
-  handleChange = (event) => {
+import {
+  Grid, Paper, Typography,
+  InputLabel, FormControl, Select
+} from '@material-ui/core';
 
   }
 
