@@ -12,9 +12,41 @@ import {
   InputLabel, FormControl, Select
 } from '@material-ui/core';
 
+class FilterComponent extends Component {
+
+  state = {
+    yearFilterOptions: Array(
+      (new Date()).getFullYear() - 1899
+    ).fill((new Date()).getFullYear())
+     .map((year, index) => ({ value: year - index, label: year - index })),
   }
 
+  componentDidMount = () => {
+    const { onFetchDirectors } = this.props;
+
+    onFetchDirectors();
+  }
+
+  handleChange = (event, name) => {
+    const capitalizeName = name.replace(/\b\w/g, l => l.toUpperCase());
+
+    this.props[`onChange${capitalizeName}`](event.target.value);
+  }
+
+  renderSelectorItems = (array) => array.map( item => {
+    return (
+      <option
+        key={ item.value }
+        value={ item.value }
+      >
+        { item.label }
+      </option>
+    );
+  });
+
   render() {
+    const { yearFilterOptions } = this.state;
+    const { directors, directorFilter, yearFilter } = this.props;
 
     return (
       <Fragment>
@@ -23,7 +55,7 @@ import {
           xs={ 2 }
           style={{
             position: 'sticky',
-            top: '100px',
+            top: '32px',
             height: '300px',
           }}
         >
@@ -35,31 +67,32 @@ import {
               <FormControl style={{ marginBottom: '16px' }}>
                 <InputLabel htmlFor="movie-director">Director</InputLabel>
                 <Select
-                  id="movie-director"
-                  value={10}
-                  onChange={this.handleChange}
+                  native
+                  inputProps={{
+                    name: 'movie-director',
+                    id: 'movie-director',
+                  }}
+                  value={ directorFilter }
+                  onChange={(event) => { this.handleChange(event, 'directorFilter') }}
                 >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                  <option key="uni-key" value="" />
+                  { this.renderSelectorItems(directors) }
                 </Select>
               </FormControl>
               <FormControl>
                 <InputLabel htmlFor="movie-year">Year</InputLabel>
                 <Select
-                  id="movie-year"
-                  value={10}
-                  onChange={this.handleChange}
+                  native
+                  inputProps={{
+                    name: 'movie-year',
+                    id: 'movie-year',
+                  }}
+
+                  value={ yearFilter }
+                  onChange={(event) => { this.handleChange(event, 'yearFilter') }}
                 >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                  <option key="uni-key" value="" />
+                  { this.renderSelectorItems(yearFilterOptions) }
                 </Select>
               </FormControl>
             </Grid>
@@ -69,4 +102,21 @@ import {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  onChangeDirectorFilter: (value) => dispatch(setDirectorFilter(value)),
+  onChangeYearFilter: (value) => dispatch(setYearFilter(value)),
+  onFetchDirectors: () => dispatch(loadDirectors()),
+});
+
+const mapStateToProps = (state) => ({
+  yearFilter: getYearFilter(state),
+  directorFilter: getDirectorFilter(state),
+  directors: getDirectorsOptions(state),
+});
+
+export const Filter = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(FilterComponent);
 
