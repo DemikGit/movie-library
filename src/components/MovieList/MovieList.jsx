@@ -9,6 +9,17 @@ import {
   getMovies, getMoviesHasMore,
 } from '../App/AppSelectors';
 
+import { loadMovies, loadMoviesPage } from '../App/AppActions';
+
+import {
+  Grid, Paper, Table,
+  TableBody, TableCell, TableHead,
+  TableRow, InputLabel, FormControl,
+  Select, TableSortLabel, MenuItem,
+  Tooltip, CircularProgress
+} from '@material-ui/core';
+import InfiniteScroll from 'react-infinite-scroller';
+
 const rows = [
   { id: 'title', numeric: false, disablePadding: true, label: 'Movie' },
   { id: 'directorId', numeric: false, disablePadding: true, label: 'Director' },
